@@ -5,7 +5,7 @@ jobs:
     build:
       runs-on: ubuntu-20.04
       env:
-        REGISTRY: docker.io
+        REGISTRY: registry.digitalocean.com/flitz-registry
         USERNAME: kiwiidb
         IMAGENAME: ale
         RELEASE_VERSION: ${{ github.event.inputs.release_version }}
@@ -14,11 +14,15 @@ jobs:
           - name: get-npm-version
             id: package-version
             uses: martinbeentjes/npm-get-version-action@master
+          - name: Install doctl
+            uses: digitalocean/action-doctl@v2
+            with:
+              token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+          - name: Doctl registry login
+            run: doctl registry login
           - name: Docker build
             uses: mr-smithers-excellent/docker-build-push@v5
             with:
-              image: ${{ env.USERNAME }}/${{ env.IMAGENAME }}
-              tags: ${{ steps.package-version.outputs.current-version }}
+              image: ${{ env.IMAGENAME }}
+              tags: ${{ steps.package-version.outputs.current-version}}
               registry: ${{ env.REGISTRY }}
-              username: ${{ env.USERNAME }}
-              password: ${{ secrets.DOCKER_HUB_LOGIN }}
