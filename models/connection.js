@@ -20,7 +20,14 @@ if (!conn) {
     throw new AleError('ALE_CONNECTION envar is not set, cannot connect to database', codes.DatabaseConnectionError);
 }
 
-const options = process.env.ALE_DEBUG === 'true' ? { logging: console.log } : { logging: null };
+const options = process.env.ALE_DEBUG === 'true' ? { logging: console.log, dialect: 'postgres',
+dialectOptions: {
+  ssl: true
+}} : { logging: null,   dialect: 'postgres',
+dialectOptions: {
+  ssl: true
+}};
+
 const sequelize = new Sequelize(conn, options);
 
 module.exports = sequelize;
