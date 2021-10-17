@@ -1,6 +1,6 @@
 {
   "name": "a.l.e",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Double accounting package based on node.js + sequelize",
   "main": "index.js",
   "repository": "git@github.com:CjS77/ale.git",
@@ -42,7 +42,7 @@
     "gulp-connect": "^4.2.0",
     "gulp-util": "^3.0.7",
     "portfinder": "^1.0.3",
-    "sequelize": "^4.11.0",
+    "sequelize": "^6.3.5",
     "shelljs": "^0.7.0",
     "swagger-repo": "^1.0.0",
     "swagger-routes": "1.7.0",
