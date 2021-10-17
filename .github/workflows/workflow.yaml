@@ -1,0 +1,24 @@
+name: Docker build
+on:
+  push
+jobs:
+    build:
+      runs-on: ubuntu-20.04
+      env:
+        REGISTRY: docker.io
+        USERNAME: kiwiidb
+        IMAGENAME: ale
+        RELEASE_VERSION: ${{ github.event.inputs.release_version }}
+      steps:
+          - uses: actions/checkout@v1
+          - name: get-npm-version
+            id: package-version
+            uses: martinbeentjes/npm-get-version-action@master
+          - name: Docker build
+            uses: mr-smithers-excellent/docker-build-push@v5
+            with:
+              image: ${{ env.USERNAME }}/${{ env.IMAGENAME }}
+              tags: ${{ steps.package-version.outputs.current-version }}
+              registry: ${{ env.REGISTRY }}
+              username: ${{ env.USERNAME }}
+              password: ${{ secrets.DOCKER_HUB_LOGIN }}

@@ -1,5 +1,4 @@
 FROM node:9
-MAINTAINER "Cayle Sharrock <cayle@nimbustech.biz>"
 EXPOSE 8813
 ENV NODE_ENV=production
 USER node
