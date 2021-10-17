@@ -1,4 +1,4 @@
-FROM node:9
+FROM node:10
 EXPOSE 8813
 ENV NODE_ENV=production
 USER node
